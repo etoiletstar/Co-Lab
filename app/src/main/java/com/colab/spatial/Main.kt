@@ -33,4 +33,8 @@ fun mainApp(scope: SpatialAppScope) =
             defaultSize = WindowContainerSize(840.dp, 1000.dp),
             placement = { containers.firstOrNull { it.id == Windows.Workbench }?.let { Placement.top(it, 24.dp) } ?: Placement.none() }
         ) { PicoTheme { ArtifactsPage() } }
+        WindowContainer(id = Windows.Feishu, form = Form.Planar,
+            defaultSize = WindowContainerSize(820.dp, 920.dp),
+            placement = { containers.firstOrNull { it.id == Windows.Workbench }?.let { Placement.bottom(it, 24.dp) } ?: Placement.none() }
+        ) { PicoTheme { FeishuPage() } }
     }
