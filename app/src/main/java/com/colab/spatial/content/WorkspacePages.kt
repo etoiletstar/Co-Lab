@@ -46,6 +46,7 @@ object Windows {
     const val Details = "colab.details"
     const val Assistant = "colab.assistant"
     const val Artifacts = "colab.artifacts"
+    const val Feishu = "colab.feishu"
 }
 
 @Composable private fun store(): WorkspaceStore = WorkspaceStore.get(LocalContext.current)
@@ -127,6 +128,8 @@ fun WorkbenchPage() {
                     WindowLaunchItem("项目产物", "保留成果与来源", "File.svg",
                         { navigator.openWindowContainer(Windows.Artifacts, tag = Windows.Artifacts) }, Modifier.weight(1f))
                 }
+                WindowLaunchItem("飞书协同", "同屏唤起飞书窗口 · 推送共识卡片 · 导入会议纪要", "chat.svg",
+                    { navigator.openWindowContainer(Windows.Feishu, tag = Windows.Feishu) }, Modifier.fillMaxWidth())
             }
             HorizontalDivider()
             Text("最近动态", style = PicoTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
