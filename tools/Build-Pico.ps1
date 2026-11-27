@@ -12,7 +12,13 @@ function Get-AsciiAlias([string]$Target, [string]$Name) {
     $taskAlias = Join-Path $env:TEMP $Name
     if (Test-Path -LiteralPath $taskAlias) {
         if ((Get-Item -LiteralPath $taskAlias).Target -eq $Target) { return $taskAlias }
-        $taskHash = [Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([Text.Encoding]::UTF8.GetBytes($Target))).Substring(0, 10)
+        $sha = [System.Security.Cryptography.SHA256]::Create()
+        try {
+            $digest = $sha.ComputeHash([Text.Encoding]::UTF8.GetBytes($Target))
+            $taskHash = [BitConverter]::ToString($digest, 0, 5).Replace('-', '')
+        } finally {
+            $sha.Dispose()
+        }
         $taskAlias = Join-Path $env:TEMP ($Name + '-' + $taskHash)
     }
     if (-not (Test-Path -LiteralPath $taskAlias)) { New-Item -ItemType Junction -Path $taskAlias -Target $Target | Out-Null }

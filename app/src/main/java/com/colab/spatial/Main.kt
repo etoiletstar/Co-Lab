@@ -14,7 +14,7 @@ fun mainApp(scope: SpatialAppScope) =
     with(scope) {
         DefaultWindowContainer {
             PicoTheme {
-                WorkbenchPage()
+                HomePage()
             }
         }
         WindowContainer(id = Windows.Canvas, form = Form.Planar,
